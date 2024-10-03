@@ -18,10 +18,13 @@ app.set('views',path.join(__dirname,'/views'));
 
 var tarefas = ['Arrumar o quarto','Estudar'];
 
-app.post('/',(req,res)=>{
-    tarefas.push(req.body.tarefa);
-    res.render('index',{tarefaslist:tarefas});
-})
+app.post('/', (req, res) => {
+    const novaTarefa = req.body.tarefa;
+    if (novaTarefa) {
+        tarefas.push(novaTarefa);
+    }
+    res.redirect('/');  // Redireciona para a página principal após adicionar a tarefa
+});
 
 app.get('/',(req,res)=>{
     
@@ -29,15 +32,13 @@ app.get('/',(req,res)=>{
 
 });
 
-app.get('/deletar/:id',(req,res)=>{
-    tarefas = tarefas.filter(function(val,index){
-        if(index != req.params.id){
-            return val;
-        }
-    })
-    res.render('index',{tarefaslist:tarefas});
-   })
-
+app.get('/deletar/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    if (!isNaN(id)) {
+        tarefas = tarefas.filter((_, index) => index !== id);
+    }
+    res.redirect('/');  // Redireciona para a página principal após deletar a tarefa
+});
 app.listen(5000,()=>{
     console.log('server rodando!');
 })

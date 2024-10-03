@@ -1,21 +1,27 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de tarefas | Projeto 1</title>
+    <link href="/public/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="tarefas">
+        <form method="post">
+            <input type="text" name="tarefa" placeholder="Adicionar nova tarefa" required />
+            <input type="submit" value="Inserir" />
+        </form>
 
-    <head>
-        <title>Lista de tarefas | Projeto 1</title>
-        <link href="/public/style.css" rel="stylesheet" />
-    </head>
-
-    <body>
-        <div> 
-            <form method="post">
-                <input type="text" name="tarefa" />
-                <input type="submit" name="acao" value="Inserir" />
-            </form>
-            <% for(let i = 0; i < tarefaslist.length; i++){ %>
-
-                <p><%= tarefaslist[i] %> | <a href="/deletar/<%= i %>">X</a></p>
-
-            <% } %> 
-        </div>
-    </body>
+        <!-- Lista de tarefas -->
+        <ul>
+            <% for (let i = 0; i < tarefaslist.length; i++) { %>
+                <li>
+                    <%= tarefaslist[i] %>
+                    <a href="/deletar/<%= i %>">Excluir</a>
+                </li>
+            <% } %>
+        </ul>
+    </div>
+</body>
 </html>
